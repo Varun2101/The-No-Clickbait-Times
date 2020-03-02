@@ -47,10 +47,9 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 stopWords = set(stopwords.words("english"))
 import nltk
-nltk.download('punkt')
 import string
 
-filename = r'C:\Users\65835\Desktop\projects\googlenewsvectorsnegative300\GoogleNews-vectors-negative300.bin'
+filename = 'GoogleNews-vectors-negative300.bin'
 model = KeyedVectors.load_word2vec_format(filename, binary=True)
 
 # To tokenize the string into words
@@ -173,10 +172,16 @@ for i in range(testData.shape[0]):
         check1 = check_spam(headline, summary)
         check2 = double_check(headline, summary)
         check3 = triple_check(headline, summary)
-        if (check1 & check2) | (check2 & check3) | (check1 & check3):  # at least 2 are true
+        if (check1 and check2) or (check2 and check3) or(check1 and check3):  # at least 2 are true
             testData["title"][i] = orig_summary
 
 # testData now actually contains our result titles with their respective content
 # saving this as a new csv,
 
 testData.to_csv('result.csv', index=False)
+
+
+
+
+
+
